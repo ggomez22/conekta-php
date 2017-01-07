@@ -1,0 +1,15 @@
+{
+    "name": "ggomez22/test-conekta",
+    "description": "Implementacion de la API de Conekta",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gustavo Gomez Amezcua",
+            "email": "ggomez406@gmail.com"
+        }
+    ],
+    "require": {
+        "conekta/conekta-php": "dev-master" 
+    }
+}
