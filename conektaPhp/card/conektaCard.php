@@ -1,7 +1,4 @@
 <?php
-require_once("/vendor/conekta/conekta-php/lib/Conekta.php");
-
-\Conekta\Conekta::setApiKey('');
 if (isset($_POST['conektaTokenId'])) {
 	try {
 		$charge = \Conekta\Charge::create(array(
@@ -55,10 +52,10 @@ if (isset($_POST['conektaTokenId'])) {
 			echo nl2br($charge."\n");
 		}*/
 
-	} catch (Conekta_Error $e) {
-		echo $e->getMessage(); //Dev Message
-  		echo $e->message_to_purchaser;
+	} catch (\Conekta\Error $e) {
+		echo nl2br($e->getMessage()."\n"); //Dev Message
+		echo nl2br($e->message_to_purchaser);
   		//El pago no pudo ser procesado
-  	}
+	}
 }
 ?>

@@ -4,10 +4,10 @@ var errorResponseHandler, successResponseHandler, tokenParams;
 
 $(function () {
   $("#card-form").submit(function(event) {
-    tokenParams = $(this);
+    $form = $(this);
 
     // Previene hacer submit más de una vez
-    tokenParams.find("button").prop("disabled", true);
+    $form.find("button").prop("disabled", true);
 
     /*tokenParams = {
     	"card": {
@@ -31,15 +31,15 @@ $(function () {
 
     var conektaTokenId;
     successResponseHandler = function(token) {
-    	tokenParams = $("#card-form");
+    	$form = $("#card-form");
 
   		/* Inserta el token_id en la forma para que se envíe al servidor */
-  		tokenParams.append($("<input type='hidden' name='conektaTokenId'>").val(token.id));
+  		$form.append($("<input type='hidden' name='conektaTokenId'>").val(token.id));
  
   		/* and submit */
-  		tokenParams.get(0).submit();
+  		$form.get(0).submit();
 
-    	console.log(token.id);
+    	//console.log(token.id);
     	/*return $.post('/index.php?token_id=' + conektaTokenId, function() {
     		return document.location = 'payment_succeeded';
     	});*/
@@ -49,14 +49,14 @@ $(function () {
 
     errorResponseHandler = function(error) {
     	return console.log(error.message);
-    	tokenParams = $("#card-form");
+    	$form = $("#card-form");
   
   		/* Muestra los errores en la forma */
-  		tokenParams.find(".card-errors").text(response.message_to_purchaser);
-  		tokenParams.find("button").prop("disabled", false);
+  		$form.find(".card-errors").text(response.message_to_purchaser);
+  		$form.find("button").prop("disabled", false);
     };
 
-    Conekta.Token.create(tokenParams, successResponseHandler, errorResponseHandler);
+    Conekta.Token.create($form, successResponseHandler, errorResponseHandler);
    
     // Previene que la información de la forma sea enviada al servidor
     return false;

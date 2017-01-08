@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Test API de Conekta</title>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="https://conektaapi.s3.amazonaws.com/v0.5.0/js/conekta.js"></script>
-		<script type="text/javascript" src="js/tokenization.js"></script>
-	</head>
-	<body>
-		<form action="" method="POST" id="card-form">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Implementación de la API de Conekta</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://conektaapi.s3.amazonaws.com/v0.5.0/js/conekta.js"></script>
+	<script type="text/javascript" src="js/conektaTest.js"></script>
+	<!--<script type="text/javascript" src="js/tokenization.js"></script>-->
+</head>
+<body>
+	<section>
+		<a href="#" id="card">Pago con tarjeta</a>
+		<form action="" method="POST" id="card-form" style="display: none;">
 			<span class="card-errors"></span>
 			<div class="form-row">
 				<label>
@@ -74,7 +78,35 @@
 			</div>
 			<button type="submit">¡Pagar ahora!</button>
 		</form>
-	</body>
+	</section>
+	<section>
+		<a href="#" id="cash">Pago en efectivo</a>
+		<form action="" method="POST" id="payment-type" style="display: none;">
+			<input class="radio" type="radio" name="payType" value="oxxo"> Oxxo <br>
+			<input class="radio" type="radio" name="payType" value="spei"> SPEI <br>
+			<input class="radio" type="radio" name="payType" value="banorte"> Banorte <br>
+			<button type="submit">¡Pagar ahora!</button>
+		</form>
+	</section>
+	<section>
+		<a href="#" id="refund">Devoluciones</a>
+		<div id="aqui" style="display: none;">
+			<p>AQUI</p>
+		</div>
+	</section>
+</body>
 </html>
 
-<?php require_once 'conektaPhp/conektaCharge.php'; ?>
+<?php 
+// Conekta lib
+require_once dirname(__FILE__).'/vendor/conekta/conekta-php/lib/Conekta.php';
+
+\Conekta\Conekta::setApiKey('');
+
+// Files to make charges
+/*require_once dirname(__FILE__).'/conektaPhp/card/conektaCard.php'; 
+require_once dirname(__FILE__).'/conektaPhp/card/conektaOnDemand.php';*/ 
+require_once dirname(__FILE__).'/conektaPhp/cash/conektaBanorte.php';
+require_once dirname(__FILE__).'/conektaPhp/cash/conektaOxxo.php'; 
+require_once dirname(__FILE__).'/conektaPhp/cash/conektaSpei.php';
+?>
